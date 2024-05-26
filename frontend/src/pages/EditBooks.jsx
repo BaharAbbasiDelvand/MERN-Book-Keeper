@@ -1,34 +1,36 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import BackButton from "../components/BackButton";
 import Spinner from "../components/Spinner";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-// import { useSnackbar } from 'notistack';
+import { useSnackbar } from "notistack";
 
 const EditBooks = () => {
     const [title, setTitle] = useState("");
     const [author, setAuthor] = useState("");
     const [publishYear, setPublishYear] = useState("");
     const [loading, setLoading] = useState(false);
-    const {id} = useParams();
     const navigate = useNavigate();
-    // const { enqueueSnackbar } = useSnackbar();
-    useEffect(()=> {
+    const { id } = useParams();
+    const { enqueueSnackbar } = useSnackbar();
+
+    useEffect(() => {
         setLoading(true);
-        axios.get(`http://localhost:5555/books/${id}`)
-        .then((response)=> {
-            setAuthor(response.data.author);
-            setPublishYear(response.data.publishYear);
-            setTitle(response.data.title);
-            setLoading(false);
-        })
-        .catch((error)=>{
-            setLoading(false);
-            alert('An error happened!');
-            console.log(error);
-        })
-    })
-    const handleSaveBook = () => {
+        axios
+            .get(`http://localhost:5555/books/${id}`)
+            .then((response) => {
+                setAuthor(response.data.author);
+                setPublishYear(response.data.publishYear);
+                setTitle(response.data.title);
+                setLoading(false);
+            }).catch((error) => {
+                setLoading(false);
+                alert("An error happened.");
+                console.log(error);
+            });
+    }, []);
+
+    const handleEditBook = () => {
         const data = {
             title,
             author,
@@ -36,16 +38,17 @@ const EditBooks = () => {
         };
         setLoading(true);
         axios
-            .post("http://localhost:5555/books", data)
+            .put(`http://localhost:5555/books/${id}`, data)
             .then(() => {
                 setLoading(false);
-                // enqueueSnackbar('Book Created successfully', { variant: 'success' });
+                enqueueSnackbar("Book Edited successfully", {
+                    variant: "success",
+                });
                 navigate("/");
             })
             .catch((error) => {
                 setLoading(false);
-                alert("An error happened. Please Chack console");
-                // enqueueSnackbar('Error', { variant: 'error' });
+                enqueueSnackbar("Error", { variant: "error" });
                 console.log(error);
             });
     };
@@ -85,7 +88,7 @@ const EditBooks = () => {
                         className="border-2 border-gray-500 px-4 py-2  w-full "
                     />
                 </div>
-                <button className="p-2 bg-sky-300 m-8" onClick={handleSaveBook}>
+                <button className="p-2 bg-sky-300 m-8" onClick={handleEditBook}>
                     Save
                 </button>
             </div>

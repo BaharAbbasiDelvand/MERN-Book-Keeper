@@ -47,7 +47,7 @@ export const Home = () => {
                                 <tr key= {book.id} className="h-8">
                                     <td className="border border-slate-700 rounded-md text-center"> 
                                         {index + 1} 
-                                    </td>
+                                    </td> 
                                     <td className="border border-slate-700 rounded-md text-center"> 
                                         {book.title} 
                                     </td>
@@ -58,13 +58,13 @@ export const Home = () => {
                                         {book.publishYear} 
                                     </td>
                                     <td className="flex justify-center gap-x-4"> 
-                                        <Link to={'/books/details/${book._id}'}>
+                                        <Link to={`/books/details/${book._id}`}>
                                             <BsInfoCircle className="text-2xl text-green-800"/>
                                         </Link>
-                                        <Link to={'/books/edit/${book._id}'}>
+                                        <Link to={`/books/edit/${book._id}`}>
                                             <AiOutlineEdit className="text-2xl text-yellow-600"/>
                                         </Link>
-                                        <Link to={'/books/delete/${book._id}'}>
+                                        <Link to={`/books/delete/${book._id}`}>
                                             <MdOutlineDelete className="text-2xl text-green-600"/>
                                         </Link>    
                                     </td>
