@@ -1,7 +1,7 @@
 import { AiOutlineClose } from "react-icons/ai";
 import { PiBookOpenTextLight } from "react-icons/pi";
 import { BiUserCircle } from "react-icons/bi";
-
+import { FaStar } from "react-icons/fa6";
 const BookModel = ({ book, onClose }) => {
     return (
         <div
@@ -19,9 +19,6 @@ const BookModel = ({ book, onClose }) => {
                 <h2 className="w-fit px-4 py-1 bg-red-300 rounded-lg">
                     {book.publishYear}
                 </h2>
-                <h2 className="w-fit px-4 py-1 bg-red-300 rounded-lg">
-                    {book.rating}
-                </h2>
                 <h4 className="my-2 text-gray-500">{book._id}</h4>
                 <div className="flex justify-start items-center gap-x-2">
                     <PiBookOpenTextLight className="text-red-300 text-2xl" />
@@ -31,9 +28,13 @@ const BookModel = ({ book, onClose }) => {
                     <BiUserCircle className="text-red-300 text-2xl" />
                     <h2 className="my-1">{book.author}</h2>
                 </div>
-                <p className="mt-4">Anything You want to show</p>
+                <div className="flex justify-start items-center gap-x-2">
+                    <FaStar className="text-red-300 text-2xl" />
+                    <h2 className="my-1">{book.rating}</h2>
+                </div>
+                <p className="mt-4">My review:</p>
                 <p className="my-2">
-                    Hello!!
+                {book.review}
                 </p>
             </div>
         </div>
