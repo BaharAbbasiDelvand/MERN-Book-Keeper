@@ -9,6 +9,7 @@ const EditBooks = () => {
     const [title, setTitle] = useState("");
     const [author, setAuthor] = useState("");
     const [publishYear, setPublishYear] = useState("");
+    const [rating, setRating] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const { id } = useParams();
@@ -21,6 +22,7 @@ const EditBooks = () => {
             .then((response) => {
                 setAuthor(response.data.author);
                 setPublishYear(response.data.publishYear);
+                setRating(response.data.rating);
                 setTitle(response.data.title);
                 setLoading(false);
             }).catch((error) => {
@@ -35,6 +37,7 @@ const EditBooks = () => {
             title,
             author,
             publishYear,
+            rating,
         };
         setLoading(true);
         axios
@@ -85,6 +88,17 @@ const EditBooks = () => {
                         type="number"
                         value={publishYear}
                         onChange={(e) => setPublishYear(e.target.value)}
+                        className="border-2 border-gray-500 px-4 py-2  w-full "
+                    />
+                </div>
+                <div className="my-4">
+                    <label className="text-xl mr-4 text-gray-500">
+                        Rating
+                    </label>
+                    <input
+                        type="number"
+                        value={rating}
+                        onChange={(e) => setRating(e.target.value)}
                         className="border-2 border-gray-500 px-4 py-2  w-full "
                     />
                 </div>
